@@ -10,11 +10,20 @@ function initGraph()
     //type: 'scatter'
     };
   */ 
+ function getData() {
+  return Math.random()*100;
+}
+var val=0;
+ function getXData(){
+   val+=1;
+   return val-1;
+ }
   var trace1 = {
     
     //x: Math.random(),
-    x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
-    y: [6,9,8,11,12,10,9,5,1,11,7,17,21,22,20,18,21,8,9,8,8,12,10,17,9],
+    //x: [getXData()],
+    y: [getData()],
+    //y: [6,9,8,11,12,10,9,5,1,11,7,17,21,22,20,18,21,8,9,8,8,12,10,17,9],
     mode: 'lines+markers',
     name: 'value',
     
@@ -24,19 +33,21 @@ function initGraph()
 
 
   var data = [trace1];
-
   var layout = {
     height: 670,
     width: 1440,
+    title: "Historic Prices",
     yaxis: {
       linecolor: 'lightblue',
       linewidth: 2,
       mirror: true,
+      title: "price"
     },
     xaxis: {
       linecolor: 'lightblue',
       linewidth: 2,
       mirror: true,
+      title: "time"
     },
     legend: {
       y: 0.5,
@@ -46,9 +57,20 @@ function initGraph()
     }};
 
   Plotly.newPlot('graphDiv', data, layout);
+  var count=0;
+  setInterval(function() {
+    Plotly.extendTraces('graphDiv', { y: [[getData()]] }, [0])
+    count++;
+    if(count>50){
+      Plotly.relayout('graphDiv',{
+        xaxis: {
+                  range: [count-50,count]
+               }
+      });
+    }
+ }, 200);
   //var add = document. getElementById("add");
   //add. innerHTML = "Add";
   //var remove = document. getElementById("remove");
   //remove. innerHTML = "remove";
 }
-//Test
