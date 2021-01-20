@@ -1,0 +1,45 @@
+<html>
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		#f{
+			border-width: 2px;
+		}
+		#d{
+			position: absolute;
+			top: 700px;
+			left: 650px;
+			
+		}
+		#add{
+			margin-right: 30px;
+			
+			
+		}
+		#remove{
+			margin-right: 30px;
+			
+			
+		}
+	</style>
+
+	<script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="graph.js"></script>
+</head>
+
+<body>
+	<div id="f">
+		<div id='graphDiv'>
+				<script>
+					initGraph();
+				</script>
+		</div>
+		<div id="d">
+			
+			<button type="button" class="btn btn-info" id="add"  value="add"  >Add</button>
+			<button type="button" class="btn btn-info" id="remove" value="remove" >Remove</button>
+		</div>
+	</div>
+</body>
+</html>
