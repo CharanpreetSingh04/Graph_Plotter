@@ -51,3 +51,4 @@ function initGraph()
   //var remove = document. getElementById("remove");
   //remove. innerHTML = "remove";
 }
+//Test
