@@ -10,29 +10,35 @@ function initGraph()
     //type: 'scatter'
     };
   */ 
+   
+  
+// Write data in 'Output.txt' . 
+ 
  function getData() {
-  return Math.random()*100;
+  var v=Math.random()*100;
+  return v;
 }
 var val=0;
  function getXData(){
    val+=1;
    return val-1;
  }
+  var time=new Date();
   var trace1 = {
-    
     //x: Math.random(),
     //x: [getXData()],
+    x: [time],
     y: [getData()],
     //y: [6,9,8,11,12,10,9,5,1,11,7,17,21,22,20,18,21,8,9,8,8,12,10,17,9],
     mode: 'lines+markers',
     name: 'value',
-    
     line: {shape: 'spline'},
     type: 'scatter'
   };
 
 
   var data = [trace1];
+  
   var layout = {
     height: 670,
     width: 1440,
@@ -55,9 +61,42 @@ var val=0;
       font: {size: 16},
       yref: 'paper'
     }};
-
+  /*var wb = XLSX.utils.book_new();
+  wb.Props = {
+    Title: "SheetJS Tutorial",
+    Subject: "Test",
+    Author: "ISRO PROJECT",
+    CreatedDate: new Date(2021,21,1)
+  };
+  wb.SheetNames.push("Test Sheet");
+  */
   Plotly.newPlot('graphDiv', data, layout);
-  var count=0;
+  var cnt = 0;
+
+  var interval = setInterval(function() {
+
+  var time = new Date();
+
+  var update = {
+    x:  [[time]],
+    y: [[getData()]]
+  }
+  var olderTime = time.setMinutes(time.getMinutes() - 1);
+  var futureTime = time.setMinutes(time.getMinutes() + 1);
+
+  var minuteView = {
+        xaxis: {
+          type: 'date',
+          range: [olderTime,futureTime]
+        }
+      };
+
+  Plotly.relayout('graphDiv', minuteView);
+  Plotly.extendTraces('graphDiv', update, [0])
+
+  //if(++cnt === 100) clearInterval(interval);
+}, 200);
+  /*var count=0;
   setInterval(function() {
     Plotly.extendTraces('graphDiv', { y: [[getData()]] }, [0])
     count++;
@@ -68,7 +107,20 @@ var val=0;
                }
       });
     }
- }, 200);
+    /*var ws_data = [[data,count]];
+    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    wb.Sheets["Test Sheet"] = ws;
+    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+    function s2ab(s) { 
+      var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+      //var view = new Uint8Array(buf);  //create uint8array as viewer
+      //for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i); //& 0xFF; //convert to octet
+      return buf;    
+    }
+    $("#button-a").click(function(){
+      saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test.xlsx');
+    });*/
+ //}, 200);*/
   //var add = document. getElementById("add");
   //add. innerHTML = "Add";
   //var remove = document. getElementById("remove");
